@@ -1,11 +1,11 @@
-// Dripify
+// Couturiere
 
 // ---------- Authentication ----------
 const VALID_EMAIL = "admin@example.com";
 const VALID_PASSWORD = "pass123!";
 
 function checkAuth() {
-    const loggedIn = sessionStorage.getItem("dripify_logged_in");
+    const loggedIn = sessionStorage.getItem("couturiere_logged_in");
     if (loggedIn === "true") {
         // Already logged in, show app and hide login
         document.getElementById("login-container").style.display = "none";
@@ -28,7 +28,7 @@ function attachLoginEvent() {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-            sessionStorage.setItem("dripify_logged_in", "true");
+            sessionStorage.setItem("couturiere_logged_in", "true");
             document.getElementById("login-container").style.display = "none";
             document.getElementById("app").style.display = "block";
             initApp();
@@ -47,7 +47,7 @@ function attachLoginEvent() {
 let outfits = [];
 
 function loadData() {
-    const stored = localStorage.getItem('dripify_outfits_v2');
+    const stored = localStorage.getItem('couturiere_outfits_v2');
     if (stored) {
         outfits = JSON.parse(stored);
     } else {
@@ -64,7 +64,7 @@ function loadData() {
 }
 
 function saveToLocal() {
-    localStorage.setItem('dripify_outfits_v2', JSON.stringify(outfits));
+    localStorage.setItem('couturiere_outfits_v2', JSON.stringify(outfits));
 }
 
 function escapeHtml(str) {
