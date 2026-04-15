@@ -10,7 +10,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
+    <!-- LOGIN SCREEN (shown initially) -->
+    <div id="login-container" class="login-overlay">
+        <div class="login-card">
+            <div class="login-header">
+                <span class="material-icons login-icon">style</span>
+                <h1>Dripify</h1>
+                <p>sign in to your style archive</p>
+            </div>
+            <div class="login-form">
+                <div class="input-group">
+                    <span class="material-icons">email</span>
+                    <input type="email" id="login-email" placeholder="Email" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <span class="material-icons">lock</span>
+                    <input type="password" id="login-password" placeholder="Password">
+                </div>
+                <button id="login-btn" class="btn primary-btn">Login</button>
+                <div id="login-error" class="error-message"></div>
+            </div>
+            <div class="login-demo-note">
+                <span class="material-icons">info</span> Demo: admin@example.com / pass123!
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP (hidden until login) -->
+    <div id="app" style="display: none;">
         <header id="header">
             <div class="logo-area">
                 <span class="material-icons logo-icon">style</span>
@@ -31,7 +58,7 @@
         </header>
 
         <main id="main">
-            <!-- HOME PAGE: Today's Fit + New Fit recommendations -->
+            <!-- HOME PAGE -->
             <div id="page-home" class="page active-page">
                 <section class="card" id="today-card">
                     <div class="card-header">
@@ -70,7 +97,7 @@
                 </section>
             </div>
 
-            <!-- DRESSER PAGE: Manage saved outfits -->
+            <!-- DRESSER PAGE -->
             <div id="page-dresser" class="page">
                 <section class="card full-width-card">
                     <div class="card-header">
@@ -114,10 +141,11 @@
 
         <footer id="footer">
             <div class="txt center">
-                &copy; 2026 · Crafted by Joaqamole
+                <span class="material-icons">copyright</span> 2026 · crafted by Joaqamole
             </div>
         </footer>
     </div>
+
     <script type="module" src="src/main.js"></script>
 </body>
 </html>

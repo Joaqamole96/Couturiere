@@ -1,9 +1,51 @@
-// Dripify – Autumn Edition (No emojis, Material Icons, two‑page layout)
+// Dripify
 
-// ---------- Data ----------
+// ---------- Authentication ----------
+const VALID_EMAIL = "admin@example.com";
+const VALID_PASSWORD = "pass123!";
+
+function checkAuth() {
+    const loggedIn = sessionStorage.getItem("dripify_logged_in");
+    if (loggedIn === "true") {
+        // Already logged in, show app and hide login
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        initApp();  // load data and start the app
+    } else {
+        document.getElementById("login-container").style.display = "flex";
+        document.getElementById("app").style.display = "none";
+        attachLoginEvent();
+    }
+}
+
+function attachLoginEvent() {
+    const loginBtn = document.getElementById("login-btn");
+    const emailInput = document.getElementById("login-email");
+    const passwordInput = document.getElementById("login-password");
+    const errorDiv = document.getElementById("login-error");
+
+    const doLogin = () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+            sessionStorage.setItem("dripify_logged_in", "true");
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            initApp();
+        } else {
+            errorDiv.textContent = "Invalid email or password. Try admin@example.com / pass123!";
+        }
+    };
+
+    loginBtn.addEventListener("click", doLogin);
+    // Allow Enter key in inputs
+    emailInput.addEventListener("keypress", (e) => { if (e.key === "Enter") doLogin(); });
+    passwordInput.addEventListener("keypress", (e) => { if (e.key === "Enter") doLogin(); });
+}
+
+// ---------- App Data & Logic (unchanged except wrapped in initApp) ----------
 let outfits = [];
 
-// Load / save localStorage
 function loadData() {
     const stored = localStorage.getItem('dripify_outfits_v2');
     if (stored) {
@@ -25,7 +67,6 @@ function saveToLocal() {
     localStorage.setItem('dripify_outfits_v2', JSON.stringify(outfits));
 }
 
-// Helper: escape HTML
 function escapeHtml(str) {
     if (!str) return '';
     return str.replace(/[&<>]/g, function(m) {
@@ -36,7 +77,6 @@ function escapeHtml(str) {
     });
 }
 
-// ---------- Today's fit (random) ----------
 function getRandomOutfit() {
     if (outfits.length === 0) return null;
     return outfits[Math.floor(Math.random() * outfits.length)];
@@ -61,7 +101,6 @@ function setTodaysFit() {
     `;
 }
 
-// ---------- Recommendation Engine (most frequent style) ----------
 function getSmartRecommendation() {
     if (outfits.length === 0) return null;
     const styleCount = {};
@@ -94,7 +133,6 @@ function updateRecommendation() {
     `;
 }
 
-// ---------- Dresser UI ----------
 function renderDresserList() {
     const container = document.getElementById('dresser-items');
     if (!container) return;
@@ -119,7 +157,6 @@ function renderDresserList() {
             </button>
         </div>
     `).join('');
-    // attach delete events
     document.querySelectorAll('.delete-item').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -134,7 +171,6 @@ function deleteOutfitById(id) {
     saveToLocal();
     renderDresserList();
     updateRecommendation();
-    // refresh today's fit if needed
     if (outfits.length === 0) {
         document.getElementById('today-outfit').innerHTML = `<div class="placeholder-text">
             <span class="material-icons">spa</span>
@@ -174,7 +210,6 @@ function addNewOutfit() {
     if (outfits.length === 1) setTodaysFit();
 }
 
-// ---------- Page navigation ----------
 function initNavigation() {
     const navBtns = document.querySelectorAll('.nav-btn');
     const pages = {
@@ -197,17 +232,10 @@ function initNavigation() {
             else if (pageId === 'dresser') showPage('dresser');
         });
     });
-    // default home
     showPage('home');
 }
 
-// ---------- Event binding ----------
-document.addEventListener('DOMContentLoaded', () => {
-    loadData();
-    setTodaysFit();
-    initNavigation();
-    
-    // pick today button
+function bindAppEvents() {
     const pickBtn = document.getElementById('btn-pick-today');
     if (pickBtn) {
         pickBtn.addEventListener('click', () => {
@@ -215,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
             else setTodaysFit();
         });
     }
-    // refresh recommendations
     const refreshRecs = document.getElementById('btn-refresh-recs');
     if (refreshRecs) {
         refreshRecs.addEventListener('click', () => {
@@ -223,14 +250,22 @@ document.addEventListener('DOMContentLoaded', () => {
             else updateRecommendation();
         });
     }
-    // add outfit
     const addBtn = document.getElementById('btn-add_outfit');
     if (addBtn) addBtn.addEventListener('click', addNewOutfit);
-    // enter key in input
     const nameField = document.getElementById('outfit-name');
     if (nameField) {
         nameField.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') addNewOutfit();
         });
     }
-});
+}
+
+function initApp() {
+    loadData();
+    setTodaysFit();
+    initNavigation();
+    bindAppEvents();
+}
+
+// Start: check authentication first
+checkAuth();
