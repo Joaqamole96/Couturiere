@@ -4,63 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dripify</title>
+    <!-- Google Fonts + Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
         <header id="header">
-            <div class="txt center" id="title">Dripify</div>
-            <div class="txt center" id="subtitle">Make every fit fire.</div>
+            <div class="logo-area">
+                <span class="material-icons logo-icon">style</span>
+                <div class="brand">
+                    <div class="txt" id="title">Dripify</div>
+                </div>
+            </div>
+            <nav id="navbar">
+                <button class="nav-btn active" data-page="home">
+                    <span class="material-icons">home</span>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" data-page="dresser">
+                    <span class="material-icons">checkroom</span>
+                    <span>Dresser</span>
+                </button>
+            </nav>
         </header>
+
         <main id="main">
-            <section class="card" id="today">
-                <div class="txt">Today's Fit</div>
-                <div class="txt small">Try on what we recommend for today</div>
-                <div id="today-outfit">
-                    <div class="placeholder">
-                        <!-- An outfit customized for today will be dynamically inserted here. -->
+            <!-- HOME PAGE: Today's Fit + New Fit recommendations -->
+            <div id="page-home" class="page active-page">
+                <section class="card" id="today-card">
+                    <div class="card-header">
+                        <span class="material-icons">wb_sunny</span>
+                        <h2>Today's Curated Fit</h2>
                     </div>
-                </div>
-                <button class="btn" id="btn-pick-today">Pick for me</button>
-            </section>
-            <section class="card" id="dresser">
-                <div class="txt">My Dresser</div>
-                <div class="txt small">See all of the items in your dresser</div>
-                <div id="dresser-items">
-                    <!-- A list of the user's items will be dynamically inserted here. -->
-                </div>
-                <div class="dresser-add_outfit">
-                    <div class="txt">Add A New Outfit</div>
-                    <div class="add-form-group">
-                        <input type="text" id="outfit-name" placeholder="e.g., Denim jacket + sneakers" autocomplete="off">
-                        <select id="outfit-season">
-                            <option value="any">Any season</option>
-                            <option value="summer">Summer</option>
-                            <option value="winter">Winter</option>
-                            <option value="spring">Spring</option>
-                            <option value="fall">Fall</option>
-                        </select>
-                        <select id="outfit-style">
-                            <option value="casual">Casual</option>
-                            <option value="smart">Smart casual</option>
-                            <option value="formal">Formal</option>
-                            <option value="sporty">Sporty</option>
-                        </select>
-                        <button class="btn" id="btn-add_outfit">Add Outfit</button>
+                    <p class="card-sub">Your daily style inspiration</p>
+                    <div id="today-outfit" class="outfit-preview">
+                        <div class="placeholder-text">
+                            <span class="material-icons">spa</span>
+                            <span>Select an outfit for today</span>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section class="card" id="new_fit">
-                <div class="txt">New Fit</div>
-                <div class="txt small">We recommend getting these items next</div>
-                <div class="new_fit-items" id="recommendation-area">
-                    <!-- A list of the suggested new items will be dynamically inserted here. -->
-                </div>
-                <button class="btn" id="btn-refresh-recs">Refresh</button>
-            </section>
+                    <button class="btn primary-btn" id="btn-pick-today">
+                        <span class="material-icons">shuffle</span>
+                        <span>Pick for me</span>
+                    </button>
+                </section>
+
+                <section class="card" id="newfit-card">
+                    <div class="card-header">
+                        <span class="material-icons">trending_up</span>
+                        <h2>Fresh Drops</h2>
+                    </div>
+                    <p class="card-sub">AI-powered next additions</p>
+                    <div id="recommendation-area" class="recommend-box">
+                        <div class="placeholder-text">
+                            <span class="material-icons">auto_awesome</span>
+                            <span>Add outfits to see recommendations</span>
+                        </div>
+                    </div>
+                    <button class="btn secondary-btn" id="btn-refresh-recs">
+                        <span class="material-icons">refresh</span>
+                        <span>Refresh suggestion</span>
+                    </button>
+                </section>
+            </div>
+
+            <!-- DRESSER PAGE: Manage saved outfits -->
+            <div id="page-dresser" class="page">
+                <section class="card full-width-card">
+                    <div class="card-header">
+                        <span class="material-icons">inventory_2</span>
+                        <h2>My Wardrobe</h2>
+                    </div>
+                    <p class="card-sub">All your saved fits</p>
+                    <div id="dresser-items" class="dresser-list">
+                        <!-- dynamic outfit list -->
+                    </div>
+                    
+                    <div class="add-outfit-section">
+                        <div class="section-title">
+                            <span class="material-icons">add_box</span>
+                            <span>Add New Piece</span>
+                        </div>
+                        <div class="add-form">
+                            <input type="text" id="outfit-name" placeholder="e.g., Wool-blend coat + leather boots" autocomplete="off">
+                            <select id="outfit-season">
+                                <option value="any">any season</option>
+                                <option value="summer">summer</option>
+                                <option value="winter">winter</option>
+                                <option value="spring">spring</option>
+                                <option value="fall">fall</option>
+                            </select>
+                            <select id="outfit-style">
+                                <option value="casual">casual</option>
+                                <option value="smart">smart</option>
+                                <option value="formal">formal</option>
+                                <option value="sporty">sporty</option>
+                            </select>
+                            <button class="btn accent-btn" id="btn-add_outfit">
+                                <span class="material-icons">library_add</span>
+                                <span>Add to dresser</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
+
         <footer id="footer">
-            <div class="txt center">&copy; 2026. Made by Joaqamole. All rights reserved.</div>
+            <div class="txt center">
+                &copy; 2026 · Crafted by Joaqamole
+            </div>
         </footer>
     </div>
     <script type="module" src="src/main.js"></script>
