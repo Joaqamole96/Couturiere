@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0.15em;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* -------------------------------------------------- */
+
+.txt {
+    &.center {
+        text-align: center;
+    }
+
+    &.small {
+        font-size: 0.8em;
+        color: #666;
+        margin-bottom: 0.5em;
+    }
+}
+
+/* -------------------------------------------------- */
+
+#header {
+    min-height: 10vh;
+    height: auto;
+    background-color: #fff;
+    padding: 1vh 0;
+}
+
+#title {
+    font-size: 3em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+#subtitle {
+    font-size: 0.9em;
+    color: #555;
+}
+
+#main {
+    min-height: 80vh;
+    height: auto;
+    background-color: #eee;
+    padding: 5vh 10vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.card {
+    flex: 1;
+    min-width: 280px;
+    background: white;
+    border-radius: 20px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card > .txt:first-child {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e2a3e;
+}
+
+#footer {
+    min-height: 10vh;
+    height: auto;
+    background-color: #fff;
+    padding: 1vh 0;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* Today's outfit area */
+#today-outfit {
+    background: #f8f6f2;
+    border-radius: 16px;
+    padding: 1rem;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px dashed #ccc;
+    margin: 0.5rem 0;
+}
+
+.placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.outfit-card {
+    width: 100%;
+}
+
+.outfit-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #2c3e2f;
+}
+
+.outfit-meta {
+    font-size: 0.7rem;
+    color: #8b7a62;
+    margin-top: 0.2rem;
+}
+
+/* Dresser items list */
+#dresser-items {
+    max-height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0.5rem 0;
+}
+
+.dresser-item {
+    background: #faf7f0;
+    border-radius: 14px;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #7c9a6e;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.item-name {
+    font-weight: 500;
+    color: #2d4a2a;
+}
+
+.item-details {
+    font-size: 0.65rem;
+    color: #8f7e64;
+    display: flex;
+    gap: 1rem;
+}
+
+.delete-item {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.1s;
+    padding: 0 0.3rem;
+}
+
+.delete-item:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Add outfit section */
+.dresser-add_outfit {
+    margin-top: 0.8rem;
+    border-top: 1px solid #e0dcd4;
+    padding-top: 0.8rem;
+}
+
+.dresser-add_outfit .txt {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.add-form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.add-form-group input,
+.add-form-group select {
+    padding: 0.5rem 0.7rem;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background: white;
+    font-size: 0.8rem;
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Buttons */
+.btn {
+    background: #2c5f2d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    width: fit-content;
+}
+
+.btn:hover {
+    background: #1f4520;
+    transform: scale(0.97);
+}
+
+#btn-add_outfit {
+    background: #d4a373;
+    color: #2d3e2b;
+}
+
+#btn-add_outfit:hover {
+    background: #c28b55;
+}
+
+#btn-refresh-recs {
+    background: #e9e2d4;
+    color: #3a5a36;
+    border: 1px solid #bcaa8c;
+}
+
+#btn-refresh-recs:hover {
+    background: #ddd0bc;
+}
+
+/* New fit / recommendation area */
+.new_fit-items {
+    background: #f4f1ea;
+    border-radius: 16px;
+    padding: 1rem;
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rec-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.rec-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #3a5a36;
+}
+
+.rec-reason {
+    font-size: 0.7rem;
+    color: #8f7e64;
+}
+
+.empty-message {
+    color: #b0a692;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    #main {
+        padding: 3vh 5vw;
+    }
+    .card {
+        min-width: 260px;
+    }
+}
+
+@media (max-width: 700px) {
+    #main {
+        flex-direction: column;
+    }
+    .card {
+        width: 100%;
+    }
+    .add-form-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

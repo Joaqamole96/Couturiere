@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dripify</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header id="header">
+            <div class="txt center" id="title">Dripify</div>
+            <div class="txt center" id="subtitle">Make every fit fire.</div>
+        </header>
+        <main id="main">
+            <section class="card" id="today">
+                <div class="txt">Today's Fit</div>
+                <div class="txt small">Try on what we recommend for today</div>
+                <div id="today-outfit">
+                    <div class="placeholder">
+                        <!-- An outfit customized for today will be dynamically inserted here. -->
+                    </div>
+                </div>
+                <button class="btn" id="btn-pick-today">Pick for me</button>
+            </section>
+            <section class="card" id="dresser">
+                <div class="txt">My Dresser</div>
+                <div class="txt small">See all of the items in your dresser</div>
+                <div id="dresser-items">
+                    <!-- A list of the user's items will be dynamically inserted here. -->
+                </div>
+                <div class="dresser-add_outfit">
+                    <div class="txt">Add A New Outfit</div>
+                    <div class="add-form-group">
+                        <input type="text" id="outfit-name" placeholder="e.g., Denim jacket + sneakers" autocomplete="off">
+                        <select id="outfit-season">
+                            <option value="any">Any season</option>
+                            <option value="summer">Summer</option>
+                            <option value="winter">Winter</option>
+                            <option value="spring">Spring</option>
+                            <option value="fall">Fall</option>
+                        </select>
+                        <select id="outfit-style">
+                            <option value="casual">Casual</option>
+                            <option value="smart">Smart casual</option>
+                            <option value="formal">Formal</option>
+                            <option value="sporty">Sporty</option>
+                        </select>
+                        <button class="btn" id="btn-add_outfit">Add Outfit</button>
+                    </div>
+                </div>
+            </section>
+            <section class="card" id="new_fit">
+                <div class="txt">New Fit</div>
+                <div class="txt small">We recommend getting these items next</div>
+                <div class="new_fit-items" id="recommendation-area">
+                    <!-- A list of the suggested new items will be dynamically inserted here. -->
+                </div>
+                <button class="btn" id="btn-refresh-recs">Refresh</button>
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="txt center">&copy; 2026. Made by Joaqamole. All rights reserved.</div>
+        </footer>
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
