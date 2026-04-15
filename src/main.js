@@ -1,4 +1,4 @@
-// Dripify – Autumn Edition with Login
+// Dripify
 
 // ---------- Authentication ----------
 const VALID_EMAIL = "admin@example.com";
