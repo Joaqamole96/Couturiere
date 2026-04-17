@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Couturiere</title>
-    <!-- Google Fonts + Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- LOGIN SCREEN (shown initially) -->
     <div id="login-container" class="login-overlay">
         <div class="login-card">
             <div class="login-header">
                 <span class="material-icons login-icon">style</span>
                 <h1>Couturiere</h1>
-                <p>sign in to your style archive</p>
+                <p>sign in to your wardrobe</p>
             </div>
             <div class="login-form">
                 <div class="input-group">
@@ -31,18 +29,19 @@
                 <div id="login-error" class="error-message"></div>
             </div>
             <div class="login-demo-note">
-                <span class="material-icons">info</span> Demo: admin@example.com / pass123!
+                <span class="material-icons">info</span> admin@example.com / pass123!
             </div>
         </div>
     </div>
 
-    <!-- MAIN APP (hidden until login) -->
+    <!-- MAIN APP -->
     <div id="app" style="display: none;">
         <header id="header">
             <div class="logo-area">
                 <span class="material-icons logo-icon">style</span>
                 <div class="brand">
-                    <div class="txt" id="title">Couturiere</div> <!-- IDK sample conflict line -->
+                    <div class="txt" id="title">Couturiere</div>
+                    <div class="txt" id="subtitle">wardrobe system</div>
                 </div>
             </div>
             <nav id="navbar">
@@ -50,9 +49,13 @@
                     <span class="material-icons">home</span>
                     <span>Home</span>
                 </button>
-                <button class="nav-btn" data-page="dresser">
+                <button class="nav-btn" data-page="items">
                     <span class="material-icons">checkroom</span>
-                    <span>Dresser</span>
+                    <span>My Items</span>
+                </button>
+                <button class="nav-btn" data-page="outfits">
+                    <span class="material-icons">inventory_2</span>
+                    <span>My Outfits</span>
                 </button>
             </nav>
         </header>
@@ -63,13 +66,13 @@
                 <section class="card" id="today-card">
                     <div class="card-header">
                         <span class="material-icons">wb_sunny</span>
-                        <h2>Today's Curated Fit</h2>
+                        <h2>Today's Fit</h2>
                     </div>
-                    <p class="card-sub">Your daily style inspiration</p>
+                    <p class="card-sub">random pick from your outfits</p>
                     <div id="today-outfit" class="outfit-preview">
                         <div class="placeholder-text">
                             <span class="material-icons">spa</span>
-                            <span>Select an outfit for today</span>
+                            <span>Create outfits first</span>
                         </div>
                     </div>
                     <button class="btn primary-btn" id="btn-pick-today">
@@ -83,55 +86,95 @@
                         <span class="material-icons">trending_up</span>
                         <h2>Fresh Drops</h2>
                     </div>
-                    <p class="card-sub">AI-powered next additions</p>
+                    <p class="card-sub">suggested items to add</p>
                     <div id="recommendation-area" class="recommend-box">
                         <div class="placeholder-text">
                             <span class="material-icons">auto_awesome</span>
-                            <span>Add outfits to see recommendations</span>
+                            <span>Add items & outfits to see suggestions</span>
                         </div>
                     </div>
                     <button class="btn secondary-btn" id="btn-refresh-recs">
                         <span class="material-icons">refresh</span>
-                        <span>Refresh suggestion</span>
+                        <span>Refresh</span>
                     </button>
                 </section>
             </div>
 
-            <!-- DRESSER PAGE -->
-            <div id="page-dresser" class="page">
+            <!-- MY ITEMS PAGE -->
+            <div id="page-items" class="page">
                 <section class="card full-width-card">
                     <div class="card-header">
-                        <span class="material-icons">inventory_2</span>
-                        <h2>My Wardrobe</h2>
+                        <span class="material-icons">checkroom</span>
+                        <h2>All Items</h2>
                     </div>
-                    <p class="card-sub">All your saved fits</p>
-                    <div id="dresser-items" class="dresser-list">
-                        <!-- dynamic outfit list -->
-                    </div>
-                    
+                    <div id="items-list" class="dresser-list"></div>
+
                     <div class="add-outfit-section">
                         <div class="section-title">
                             <span class="material-icons">add_box</span>
-                            <span>Add New Piece</span>
+                            <span>Add New Item</span>
                         </div>
                         <div class="add-form">
-                            <input type="text" id="outfit-name" placeholder="e.g., Wool-blend coat + leather boots" autocomplete="off">
-                            <select id="outfit-season">
-                                <option value="any">any season</option>
-                                <option value="summer">summer</option>
-                                <option value="winter">winter</option>
-                                <option value="spring">spring</option>
-                                <option value="fall">fall</option>
+                            <input type="text" id="item-name" placeholder="Item name">
+                            <select id="item-type">
+                                <option value="wear">Wear (essential)</option>
+                                <option value="accessory">Accessory</option>
                             </select>
-                            <select id="outfit-style">
-                                <option value="casual">casual</option>
-                                <option value="smart">smart</option>
-                                <option value="formal">formal</option>
-                                <option value="sporty">sporty</option>
+                            <select id="item-category">
+                                <option value="upperwear">Upperwear</option>
+                                <option value="lowerwear">Lowerwear</option>
+                                <option value="footwear">Footwear</option>
+                                <option value="headwear">Headwear</option>
+                                <option value="bag">Bag</option>
+                                <option value="jewelry">Jewelry</option>
+                                <option value="other">Other</option>
                             </select>
-                            <button class="btn accent-btn" id="btn-add_outfit">
+                            <select id="item-season">
+                                <option value="any">Any season</option>
+                                <option value="summer">Summer</option>
+                                <option value="winter">Winter</option>
+                                <option value="spring">Spring</option>
+                                <option value="fall">Fall</option>
+                            </select>
+                            <select id="item-formality">
+                                <option value="casual">Casual</option>
+                                <option value="smart">Smart</option>
+                                <option value="formal">Formal</option>
+                                <option value="sporty">Sporty</option>
+                            </select>
+                            <input type="text" id="item-color" placeholder="Color (e.g., navy)">
+                            <input type="text" id="item-material" placeholder="Material (e.g., cotton)">
+                            <button class="btn accent-btn" id="btn-add-item">
                                 <span class="material-icons">library_add</span>
-                                <span>Add to dresser</span>
+                                <span>Add Item</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- MY OUTFITS PAGE -->
+            <div id="page-outfits" class="page">
+                <section class="card full-width-card">
+                    <div class="card-header">
+                        <span class="material-icons">inventory_2</span>
+                        <h2>My Outfits</h2>
+                    </div>
+                    <div id="outfits-list" class="dresser-list"></div>
+
+                    <div class="add-outfit-section">
+                        <div class="section-title">
+                            <span class="material-icons">add_box</span>
+                            <span>Create New Outfit</span>
+                        </div>
+                        <div class="add-form">
+                            <input type="text" id="outfit-name" placeholder="Outfit name">
+                            <div id="outfit-item-selector" class="multi-select">
+                                <!-- checkboxes for items will be inserted here -->
+                            </div>
+                            <button class="btn accent-btn" id="btn-create-outfit">
+                                <span class="material-icons">checklist</span>
+                                <span>Create Outfit</span>
                             </button>
                         </div>
                     </div>
@@ -141,7 +184,7 @@
 
         <footer id="footer">
             <div class="txt center">
-                <span class="material-icons">copyright</span> 2026 · crafted by Joaqamole
+                <span class="material-icons">copyright</span> 2026 · Joaqamole
             </div>
         </footer>
     </div>

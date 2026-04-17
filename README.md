@@ -11,7 +11,7 @@ Couturiere helps you pick an outfit for the day and suggests new pieces based on
 ## How to run
 
 1. Download or clone the files. Keep the folder structure:
-dripify/
+couturiere/
 ├── index.html
 ├── style.css
 ├── src/

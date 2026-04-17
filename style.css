@@ -471,3 +471,52 @@ h1, h2, .brand #title {
         justify-content: center;
     }
 }
+
+/* Add these new rules at the end of style.css */
+
+.multi-select {
+    background: #fffaf2;
+    border-radius: 20px;
+    padding: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #e2cfb5;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.multi-select label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+    cursor: pointer;
+}
+
+.multi-select input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.outfit-items-preview {
+    font-size: 0.7rem;
+    color: #ab825b;
+    margin-top: 0.2rem;
+}
+
+.warning-message {
+    color: #c95a3a;
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+}
+
+.item-count-badge {
+    background: #f0e2cf;
+    border-radius: 30px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    color: #8b562b;
+    margin-left: 0.5rem;
+}
