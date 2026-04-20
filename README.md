@@ -1,67 +1,113 @@
-# Couturiere – personal outfit helper
+# Couturière – Personal Outfit Helper
 
-**Version:** 0.2.0 (login added)  
-**Last updated:** 2026-04-16  
-**Status:** working prototype, more features planned
+## Metadata
 
-## What this is
++-----------+--------------+
+| Version   | Last Updated |
++-----------+--------------+
+| v0.3.0    | 2026-04-18   |
++-----------+--------------+
 
-Couturiere helps you pick an outfit for the day and suggests new pieces based on what you already have in your virtual dresser. Everything runs in your browser – no server, no database (yet). Your wardrobe is saved locally.
+## Description
 
-## How to run
+Couturière is a wardrobe management application that assists the user in curating daily outfits, maintaining a catalogue of articles, and receiving suggestions for new pieces.
 
-1. Download or clone the files. Keep the folder structure:
-couturiere/
-├── index.html
-├── style.css
-├── src/
-│ └── main.js
-└── README.md
+## Objects
 
-1. Open `index.html` with any modern browser (Chrome, Firefox, Edge, Safari).
-2. No build step, no dependencies. Works offline after the first load.
+### Article
 
-## Login (added in v0.2)
+An individual article of clothing or accessory.
 
-The app now asks for an email and password before showing your wardrobe.  
-Use these demo credentials:
+Properties:
+- `id` (string, UUID) – unique identifier
+- `name` (string) – display name of the article
+- `description` (string, optional) – free‑text notes
+- `season` (enum: "spring", "summer", "autumn", "winter", "all") – intended seasonal use
+- `style` (enum: "casual", "smart", "formal", "sporty") – style category
+- `variation` (string, optional) – describes a modifiable state of the article (e.g., "rolled sleeves", "tucked", "belted"). Variations may affect thermal suitability or style independently of the base article.
+- `tags` (array of strings, optional) – user‑defined keywords
+- `createdAt` (ISO date string) – timestamp of creation
+- `updatedAt` (ISO date string) – timestamp of last modification
 
-- **Email:** `admin@example.com`
-- **Password:** `pass123!`
+### Ensemble
 
-Once logged in, the app remembers your session until you close the browser tab.  
-*Why?* We’re planning to connect a real database later – this is just a placeholder.
+A collection of one or more `Article` references. Also referred to as an outfit, fit, or wear.
 
-## How to use
+Properties:
+- `id` (string, UUID) – unique identifier
+- `name` (string) – display name of the ensemble
+- `articleIds` (array of UUIDs) – references to constituent articles
+- `tags` (array of strings, optional) – independent tags for the ensemble (e.g., "date night", "casual Friday"). These tags are not inherited from individual articles.
+- `createdAt` (ISO date string)
+- `updatedAt` (ISO date string)
 
-After logging in, you’ll see two pages (navigation bar at the top):
+## Pages
 
-### Home page
-- **Today’s Curated Fit** – click “Pick for me” to get a random outfit from your dresser.
-- **Fresh Drops** – click “Refresh suggestion” to see an AI‑style recommendation. It looks at your most common style category (casual, smart, formal, sporty) and suggests a matching outfit.
+### Home Page
 
-### Dresser page
-- **My Wardrobe** – list of all outfits you’ve saved. Each shows the name, style, and season.
-- **Delete** – click the trash icon to remove an outfit.
-- **Add New Piece** – type a name, pick a season and style, then click “Add to dresser”.
+The home page contains two sections:
 
-All changes are saved automatically in your browser’s local storage.
+#### 1. Dashboard
 
-## Known issues / notes
+Displays a welcome banner and high‑level summary of the wardrobe (e.g., article count, ensemble count).
 
-- The “AI recommendation” is very simple – it just picks a random outfit from your most frequent style. It’s not actual machine learning.
-- Login credentials are hardcoded. In a real version we’d use a backend.
-- If you clear your browser’s local storage, your saved outfits will disappear.
-- No image uploads yet – just text descriptions.
+#### 2. À la Main
 
-## What’s next (roadmap)
+A curated outfit for the day. The system selects an ensemble from the user’s dresser based on a simple heuristic (most frequent style category among articles). User may request a new random selection via a “Pick for me” control.
 
-- Real database (Firebase or similar)
-- Weather API integration → recommends outfits based on today’s temperature
-- Outfit photos
-- Share / export your wardrobe
+### My Fits
 
-## Credits
+The My Fits page is divided into two sub‑sections:
 
-Made by Joaqamole, 2026.  
-Icons by Google Material Icons. Fonts from Google Fonts (Inter + Playfair Display).
+#### 1. Penderie
+
+Shows the collection of both `Article` and `Ensemble` objects owned by the user.
+
+##### A. View Article
+
+Opened by clicking on an article. Displays the article’s full properties (name, description, tags, variation, etc.) and provides actions: **Edit Article** and **Delete Article**.
+
+###### I. Edit Article
+
+Allows modification of all editable fields (`name`, `description`, `season`, `style`, `variation`, `tags`). Upon submission, the `updatedAt` timestamp is refreshed.
+
+###### II. Delete Article
+
+Prompts the user to confirm deletion. If confirmed, removes the article from storage. Any ensemble that referenced the deleted article shall have that reference removed (orphaned references are not permitted).
+
+##### B. Add Article
+
+Presents a form to create a new `Article`. All fields except `description` and `variation` are required. On successful creation, the article is appended to the wardrobe and persisted.
+
+##### C. View Ensemble
+
+Analogous to View Article – displays ensemble properties (name, constituent articles, independent tags). Actions: **Edit Ensemble** and **Delete Ensemble**.
+
+##### D. Add Ensemble
+
+Form to create a new `Ensemble`. The user selects a name and one or more existing articles. Ensemble‑specific tags may be added independently.
+
+#### 2. Create‑a‑Fit
+
+Dedicated interface for building a new `Ensemble` from scratch. Distinct from the simple “Add Ensemble” action because it emphasises a step‑by‑step, visual assembly process. The user may:
+
+- Browse and filter existing articles
+- Add articles to a working set
+- Assign ensemble‑level tags (independent of article tags)
+- Save the resulting ensemble to `My Fits`
+
+The output is an `Ensemble` object as defined above.
+
+## Technical Specifications
+
+### Current Stack
+
+- **Platform:** Web (desktop / mobile browser)
+- **Languages:** HTML5, CSS3, JavaScript (ES2020)
+- **Persistence:** `localStorage` (browser)
+- **Authentication:** Demo placeholder (see below)
+- **Dependencies:** None (vanilla implementation)
+
+### Planned Migration
+
+A future release will migrate the application to **React Native** (targeting iOS and Android). The data model (`Article`, `Ensemble`) and core logic will be preserved; only the presentation and persistence layers will be re‑implemented.

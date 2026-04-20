@@ -100,19 +100,6 @@ body {
     margin-top: 0.3rem;
 }
 
-.login-demo-note {
-    margin-top: 1.5rem;
-    font-size: 0.7rem;
-    color: #b8956e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-    border-top: 1px solid #f0e2cf;
-    padding-top: 1rem;
-}
-
-/* ---------- REST OF ORIGINAL STYLES (unchanged below) ---------- */
 h1, h2, .brand #title {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
