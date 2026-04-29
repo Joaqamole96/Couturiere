@@ -31,12 +31,16 @@ function renderWardrobe() {
     
     let html = "";
     for (let item of itemsToRender) {
+        let favoriteStar = item.favorite ? "⭐" : "☆";
         html += `
             <div class="card" data-id="${item.id}">
                 <div class="card-emoji">${item.emoji}</div>
                 <div class="card-name">${escapeHtml(item.name)}</div>
                 <div class="card-category">${item.category}</div>
-                <button class="delete-btn" data-id="${item.id}">🗑 Delete</button>
+                <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <button class="favorite-btn" data-id="${item.id}">${favoriteStar}</button>
+                    <button class="delete-btn" data-id="${item.id}">🗑 Delete</button>
+                </div>
             </div>
         `;
     }
@@ -47,6 +51,13 @@ function renderWardrobe() {
         btn.addEventListener("click", (e) => {
             const id = parseInt(btn.dataset.id);
             deleteItem(id);
+        });
+    });
+
+    document.querySelectorAll(".favorite-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = parseInt(btn.dataset.id);
+            toggleFavorite(id);
         });
     });
 }
@@ -81,10 +92,11 @@ function addItem() {
     }
     
     const newItem = {
-        id: Date.now(), // unique ID
+        id: Date.now(),
         name: name,
         category: category,
-        emoji: emoji
+        emoji: emoji,
+        favorite: false
     };
     
     clothes.push(newItem);
@@ -115,6 +127,15 @@ function setFilter(category) {
             btn.classList.remove("active");
         }
     });
+}
+
+// ---------- FUNCTION 5: Toggle favorite ----------
+function toggleFavorite(id) {
+    const item = clothes.find(i => i.id === id);
+    if (item) {
+        item.favorite = !item.favorite;
+        renderWardrobe();
+    }
 }
 
 // ---------- EVENT LISTENERS ----------
