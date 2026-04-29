@@ -3,188 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Couturiere</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Couturière</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="login-container" class="login-overlay">
-        <div class="login-card">
-            <div class="login-header">
-                <span class="material-icons login-icon">style</span>
-                <h1>Couturiere</h1>
-                <p>sign in to your wardrobe</p>
-            </div>
-            <div class="login-form">
-                <div class="input-group">
-                    <span class="material-icons">email</span>
-                    <input type="email" id="login-email" placeholder="Email" autocomplete="off">
-                </div>
-                <div class="input-group">
-                    <span class="material-icons">lock</span>
-                    <input type="password" id="login-password" placeholder="Password">
-                </div>
-                <button id="login-btn" class="btn primary-btn">Login</button>
-                <div id="login-error" class="error-message"></div>
-            </div>
-        </div>
+    <header>
+        <h1>Couturière</h1>
+        <p class="subtitle">style your life</p>
+    </header>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+        <button data-category="All" class="filter-btn active">All</button>
+        <button data-category="Tops" class="filter-btn">Tops</button>
+        <button data-category="Bottoms" class="filter-btn">Bottoms</button>
+        <button data-category="Dresses" class="filter-btn">Dresses</button>
     </div>
 
-    <div id="app" style="display: none;">
-        <header id="header">
-            <div class="logo-area">
-                <span class="material-icons logo-icon">style</span>
-                <div class="brand">
-                    <div class="txt" id="title">Couturiere</div>
-                    <div class="txt" id="subtitle">style your life</div>
-                </div>
-            </div>
-            <nav id="navbar">
-                <button class="nav-btn active" data-page="home">
-                    <span class="material-icons">home</span>
-                    <span>Home</span>
-                </button>
-                <button class="nav-btn" data-page="items">
-                    <span class="material-icons">checkroom</span>
-                    <span>My Items</span>
-                </button>
-                <button class="nav-btn" data-page="outfits">
-                    <span class="material-icons">inventory_2</span>
-                    <span>My Outfits</span>
-                </button>
-            </nav>
-        </header>
-
-        <main id="main">
-            <!-- HOME PAGE -->
-            <div id="page-home" class="page active-page">
-                <section class="card" id="today-card">
-                    <div class="card-header">
-                        <span class="material-icons">wb_sunny</span>
-                        <h2>Today's Fit</h2>
-                    </div>
-                    <p class="card-sub">random pick from your outfits</p>
-                    <div id="today-outfit" class="outfit-preview">
-                        <div class="placeholder-text">
-                            <span class="material-icons">spa</span>
-                            <span>Create outfits first</span>
-                        </div>
-                    </div>
-                    <button class="btn primary-btn" id="btn-pick-today">
-                        <span class="material-icons">shuffle</span>
-                        <span>Pick for me</span>
-                    </button>
-                </section>
-
-                <section class="card" id="newfit-card">
-                    <div class="card-header">
-                        <span class="material-icons">trending_up</span>
-                        <h2>Fresh Drops</h2>
-                    </div>
-                    <p class="card-sub">suggested items to add</p>
-                    <div id="recommendation-area" class="recommend-box">
-                        <div class="placeholder-text">
-                            <span class="material-icons">auto_awesome</span>
-                            <span>Add items & outfits to see suggestions</span>
-                        </div>
-                    </div>
-                    <button class="btn secondary-btn" id="btn-refresh-recs">
-                        <span class="material-icons">refresh</span>
-                        <span>Refresh</span>
-                    </button>
-                </section>
-            </div>
-
-            <!-- MY ITEMS PAGE -->
-            <div id="page-items" class="page">
-                <section class="card full-width-card">
-                    <div class="card-header">
-                        <span class="material-icons">checkroom</span>
-                        <h2>All Items</h2>
-                    </div>
-                    <div id="items-list" class="dresser-list"></div>
-
-                    <div class="add-outfit-section">
-                        <div class="section-title">
-                            <span class="material-icons">add_box</span>
-                            <span>Add New Item</span>
-                        </div>
-                        <div class="add-form">
-                            <input type="text" id="item-name" placeholder="Item name">
-                            <select id="item-type">
-                                <option value="wear">Wear (essential)</option>
-                                <option value="accessory">Accessory</option>
-                            </select>
-                            <select id="item-category">
-                                <option value="upperwear">Upperwear</option>
-                                <option value="lowerwear">Lowerwear</option>
-                                <option value="footwear">Footwear</option>
-                                <option value="headwear">Headwear</option>
-                                <option value="bag">Bag</option>
-                                <option value="jewelry">Jewelry</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <select id="item-season">
-                                <option value="any">Any season</option>
-                                <option value="summer">Summer</option>
-                                <option value="winter">Winter</option>
-                                <option value="spring">Spring</option>
-                                <option value="fall">Fall</option>
-                            </select>
-                            <select id="item-formality">
-                                <option value="casual">Casual</option>
-                                <option value="smart">Smart</option>
-                                <option value="formal">Formal</option>
-                                <option value="sporty">Sporty</option>
-                            </select>
-                            <input type="text" id="item-color" placeholder="Color (e.g., navy)">
-                            <input type="text" id="item-material" placeholder="Material (e.g., cotton)">
-                            <button class="btn accent-btn" id="btn-add-item">
-                                <span class="material-icons">library_add</span>
-                                <span>Add Item</span>
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- MY OUTFITS PAGE -->
-            <div id="page-outfits" class="page">
-                <section class="card full-width-card">
-                    <div class="card-header">
-                        <span class="material-icons">inventory_2</span>
-                        <h2>My Outfits</h2>
-                    </div>
-                    <div id="outfits-list" class="dresser-list"></div>
-
-                    <div class="add-outfit-section">
-                        <div class="section-title">
-                            <span class="material-icons">add_box</span>
-                            <span>Create New Outfit</span>
-                        </div>
-                        <div class="add-form">
-                            <input type="text" id="outfit-name" placeholder="Outfit name">
-                            <div id="outfit-item-selector" class="multi-select">
-                                <!-- checkboxes for items will be inserted here -->
-                            </div>
-                            <button class="btn accent-btn" id="btn-create-outfit">
-                                <span class="material-icons">checklist</span>
-                                <span>Create Outfit</span>
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <footer id="footer">
-            <div class="txt center">
-                <span class="material-icons">copyright</span> 2026 · Joaqamole
-            </div>
-        </footer>
+    <!-- Form to add new item -->
+    <div class="add-form">
+        <input type="text" id="itemName" required>
+        <select id="itemCategory">
+            <option value="Tops">Tops</option>
+            <option value="Bottoms">Bottoms</option>
+            <option value="Dresses">Dresses</option>
+        </select>
+        <input type="text" id="itemEmoji" maxlength="2" value="👕">
+        <button id="addBtn">+ Add to wardrobe</button>
     </div>
 
-    <script type="module" src="src/main.js"></script>
+    <!-- Grid container for clothing cards -->
+    <div id="gridContainer" class="grid-container">
+        <!-- JavaScript will fill this -->
+    </div>
+
+    <footer>
+        <p>2026 · Made by Joaqamole · All rights reserved</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
